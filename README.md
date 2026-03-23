@@ -53,28 +53,3 @@ A web-based music application developed using PHP and SQL. The system simulates 
 3\. Import `database\_setup.sql` into MySQL
 
 4\. Run project via localhost
-
-
-
-\## What I Learned
-
-\- Backend development with PHP
-
-\- Database design and SQL queries
-
-\- Web application structure
-
-\- CRUD operations
-
-
-
-\## Future Improvements
-
-\- Better UI/UX design
-
-\- Music streaming integration
-
-\- Search and filtering
-
-\- User profile system
-
