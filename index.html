@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player - Initialize Database</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f6fa; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .container { background: #fff; padding: 2rem 3rem; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); text-align: center; }
+        button { background: #4f8cff; color: #fff; border: none; padding: 1rem 2rem; border-radius: 6px; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Music Player</h1>
+        <p>Click the button below to initialize the database.</p>
+        <form action="install.php" method="post">
+            <button type="submit">Initialize Database</button>
+        </form>
+    </div>
+</body>
+</html> 

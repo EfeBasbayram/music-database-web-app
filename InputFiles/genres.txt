@@ -1,0 +1,15 @@
+Pop
+Rock
+Hip Hop
+Jazz
+Classical
+Electronic
+R&B
+Country
+Metal
+Folk
+Blues
+Reggae
+Soul
+Funk
+K-Pop

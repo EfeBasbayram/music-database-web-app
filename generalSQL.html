@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1a2e;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .query-section {
+            background-color: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .results-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .result-card {
+            background-color: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .result-card h3 {
+            margin-top: 0;
+            color: #4cc9f0;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #0f3460;
+            color: white;
+            border: 1px solid #4cc9f0;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        button {
+            background-color: #4cc9f0;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3aa8d0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #4cc9f0;
+        }
+        th {
+            background-color: #0f3460;
+            color: #4cc9f0;
+        }
+        .predefined-queries {
+            margin-bottom: 20px;
+        }
+        .predefined-queries button {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .predefined-queries.predefined-btn {
+            background-color: #0f3460;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .predefined-queries.predefined-btn:hover {
+            background-color: #3aa8d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="homepage.php" class="back-btn" style="background-color:#16213e;color:#4cc9f0;text-decoration:none;font-weight:bold;border-radius:8px;padding:0.5rem 1.2rem;display:inline-block;margin-bottom:1.5rem;transition:background 0.18s,color 0.18s,transform 0.1s;">← Back to Homepage</a>
+        <h1>Music Analytics Dashboard</h1>
+        
+        <div class="query-section">
+            <h2>Predefined Queries</h2>
+            <div class="predefined-queries" style="margin-bottom: 1.5rem;">
+                <form action="generalSQL.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="custom_query" value="SELECT top_genre, COUNT(*) as count FROM USERS GROUP BY top_genre ORDER BY count DESC LIMIT 5">
+                    <button type="submit" class="predefined-btn">Top 5 User Genres</button>
+                </form>
+                <form action="generalSQL.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="custom_query" value="SELECT C.country_name, COUNT(*) as user_count FROM USERS U JOIN COUNTRY C ON U.country_id = C.country_id GROUP BY C.country_name ORDER BY user_count DESC LIMIT 5">
+                    <button type="submit" class="predefined-btn">Top 5 Countries by User Count</button>
+                </form>
+                <form action="generalSQL.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="custom_query" value="SELECT name, listeners FROM ARTISTS ORDER BY listeners DESC LIMIT 5">
+                    <button type="submit" class="predefined-btn">Top 5 Artists by Listeners</button>
+                </form>
+                <form action="generalSQL.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="custom_query" value="SELECT S.title, COUNT(*) as play_count FROM PLAY_HISTORY PH JOIN SONGS S ON PH.song_id = S.song_id GROUP BY S.song_id, S.title ORDER BY play_count DESC LIMIT 5">
+                    <button type="submit" class="predefined-btn">Top 5 Most Played Songs</button>
+                </form>
+                <form action="generalSQL.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="custom_query" value="SELECT C.country_name, S.genre, COUNT(*) as play_count FROM PLAY_HISTORY PH JOIN USERS U ON PH.user_id = U.user_id JOIN SONGS S ON PH.song_id = S.song_id JOIN COUNTRY C ON U.country_id = C.country_id GROUP BY C.country_name, S.genre ORDER BY play_count DESC LIMIT 5">
+                    <button type="submit" class="predefined-btn">Top Genres by Country</button>
+                </form>
+                <form action="generalSQL.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="custom_query" value="SELECT name, follower_num FROM USERS ORDER BY follower_num DESC LIMIT 5">
+                    <button type="submit" class="predefined-btn">Top 5 Most Followed Users</button>
+                </form>
+                <form action="generalSQL.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="custom_query" value="SELECT P.title, COUNT(PS.song_id) as song_count FROM PLAYLISTS P JOIN PLAYLIST_SONGS PS ON P.playlist_id = PS.playlist_id GROUP BY P.playlist_id, P.title ORDER BY song_count DESC LIMIT 5">
+                    <button type="submit" class="predefined-btn">Top 5 Playlists by Song Count</button>
+                </form>
+                <form action="generalSQL.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="custom_query" value="SELECT A.name, COUNT(S.song_id) as song_count FROM ALBUMS A JOIN SONGS S ON A.album_id = S.album_id GROUP BY A.album_id, A.name ORDER BY song_count DESC LIMIT 5">
+                    <button type="submit" class="predefined-btn">Top 5 Albums by Song Count</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="query-section">
+            <h2>Custom SQL Query</h2>
+            <form action="generalSQL.php" method="POST">
+                <textarea name="custom_query" id="queryInput" placeholder="Enter your SQL query here..."></textarea>
+                <button type="submit">Execute Query</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 
